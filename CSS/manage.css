@@ -1,0 +1,539 @@
+/* General Styles */
+        body {
+            display: flex;
+            font-family: 'Kanit', sans-serif;
+            margin: 0;
+            background-color: #ffffff; /* สีขาว */
+            color: #333; /* ข้อความสีเทาเข้ม */
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: flex;
+            width: 100%;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: #ffffff; /* สีขาว */
+            padding: 10px;
+            height: 100vh;
+            position: fixed;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            color: #1877f2; /* สีฟ้าน้ำเงิน */
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+            color: #333; /* ข้อความสีเทาเข้ม */
+        }
+
+        .sidebar ul li:hover {
+            background: #1877f2; /* สีฟ้าน้ำเงิน */
+            color: white;
+        }
+
+        .sidebar ul li i {
+            font-size: 1.2em;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 270px;
+            padding: 20px;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .main-content h1 {
+            color: #1877f2; /* สีฟ้าน้ำเงิน */
+            margin-bottom: 20px;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: #ffffff; /* สีขาว */
+            padding: 20px;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 250px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #333; /* ข้อความสีเทาเข้ม */
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(24, 119, 242, 0.2); /* สีฟ้าน้ำเงิน */
+        }
+
+        .card h3 {
+            color: #1877f2; /* สีฟ้าน้ำเงิน */
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            margin: 10px 0;
+            color: #555; /* ข้อความสีเทา */
+        }
+
+        /* Chart */
+        canvas {
+            margin-top: 20px;
+            background: #ffffff; /* สีขาว */
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        /* Hidden Pages */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Calendar Styles */
+        #calendar {
+            width: 100%;
+            height: 90vh; /* ทำให้ปฏิทินสูงเกือบเต็มหน้าจอ */
+            margin: auto;
+            background: #ffffff; /* สีพื้นหลัง */
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px; /* เพิ่ม padding เพื่อให้เนื้อหาดูไม่ชิดขอบ */
+        }
+
+        .fc-header-toolbar {
+            margin-bottom: 10px;
+            background-color: #1877f2; /* สีฟ้าน้ำเงิน */
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .fc-event {
+            cursor: pointer;
+            border-radius: 5px;
+            padding: 5px;
+            font-size: 0.9em;
+            background-color: #1877f2; /* สีฟ้าน้ำเงิน */
+            border: none;
+            color: white;
+        }
+
+        .fc-daygrid-event {
+            white-space: normal; /* ให้ข้อความขึ้นบรรทัดใหม่ */
+        }
+
+        .fc-daygrid-day-number {
+            color: #333; /* สีตัวเลขวันที่ */
+            font-size: 1.2em;
+        }
+
+        .fc-daygrid-day-top {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fc-daygrid-day-frame {
+            background-color: #f0f2f5; /* สีพื้นหลังของแต่ละวัน */
+            border-radius: 5px;
+            margin: 2px;
+        }
+
+        .fc-daygrid-day:hover {
+            background-color: #e4e6eb; /* สีพื้นหลังเมื่อ hover */
+        }
+
+        .fc-day-today {
+            background-color: #e3f2fd !important; /* สีพื้นหลังของวันปัจจุบัน */
+        }
+
+        /* Chat Container */
+        .chat-container {
+            display: flex;
+            height: 70vh;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Chat Sidebar */
+        .chat-sidebar {
+            width: 200px;
+            background: #f9f9f9;
+            border-right: 1px solid #ddd;
+            overflow-y: auto;
+        }
+
+        .chat-list {
+            padding: 10px;
+        }
+
+        .chat-item {
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .chat-item:hover {
+            background-color: #1877f2;
+            color: white;
+        }
+
+        /* Chat Main */
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 10px;
+            background: #1877f2;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            background: #fff;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .chat-input button {
+            padding: 10px 20px;
+            background: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .chat-input button:hover {
+            background: #155a8a;
+        }
+
+        /* Message Styles */
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 70%;
+        }
+
+        .message.sent {
+            background: #1877f2;
+            color: white;
+            margin-left: auto;
+        }
+
+        .message.received {
+            background: #f1f1f1;
+            color: #333;
+            margin-right: auto;
+        }
+
+        .approval-form {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .approval-form label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .approval-form input, .approval-form select, .approval-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .approval-form button {
+            padding: 10px 20px;
+            background: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .approval-form button:hover {
+            background: #155a8a;
+        }
+
+        .approval-status {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .approval-status table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .approval-status th, .approval-status td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .approval-status th {
+            background: #1877f2;
+            color: white;
+        }
+
+        .approval-status tr:hover {
+            background: #f1f1f1;
+        }
+
+        .support-section {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .support-section h3 {
+            color: #1877f2;
+            margin-bottom: 15px;
+        }
+
+        .faq-list, .manual-list {
+            margin-bottom: 20px;
+        }
+
+        .faq-item, .manual-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-item:hover, .manual-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        .ticket-form {
+            margin-top: 20px;
+        }
+
+        .ticket-form label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .ticket-form input, .ticket-form select, .ticket-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .ticket-form button {
+            padding: 10px 20px;
+            background: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .ticket-form button:hover {
+            background: #155a8a;
+        }
+
+        .evaluation-section {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .evaluation-form label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .evaluation-form input, .evaluation-form select, .evaluation-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .evaluation-form button {
+            padding: 10px 20px;
+            background: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .evaluation-form button:hover {
+            background: #155a8a;
+        }
+
+        .evaluation-status {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .evaluation-status table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .evaluation-status th, .evaluation-status td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .evaluation-status th {
+            background: #1877f2;
+            color: white;
+        }
+
+        .evaluation-status tr:hover {
+            background: #f1f1f1;
+        }
+
+        .goal-section {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .goal-form label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .goal-form input, .goal-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .goal-form button {
+            padding: 10px 20px;
+            background: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .goal-form button:hover {
+            background: #155a8a;
+        }
+
+        .goal-list {
+            margin-top: 20px;
+        }
+
+        .goal-item {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: #f9f9f9;
+        }
+
+        .goal-item h4 {
+            margin: 0;
+            color: #1877f2;
+        }
+
+        .goal-item p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            #calendar {
+                height: 70vh; /* ปรับความสูงสำหรับอุปกรณ์ขนาดเล็ก */
+            }
+
+            .fc-header-toolbar {
+                flex-direction: column; /* จัดเรียงปุ่มควบคุมในแนวตั้ง */
+                padding: 5px;
+            }
+
+            .fc-toolbar-title {
+                font-size: 1.2em; /* ปรับขนาดตัวอักษรของหัวข้อ */
+            }
+
+            .fc-button {
+                font-size: 0.8em; /* ปรับขนาดตัวอักษรของปุ่ม */
+                padding: 5px;
+            }
+        }

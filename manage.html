@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage | Production House</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/manage.css">
+</head>
+<body>
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>EMPLOYEE</h2>
+            <ul>
+                <li onclick="showPage('profile')"><i class="fas fa-user"></i> ข้อมูลส่วนตัว</li>
+                <li onclick="showPage('tasks')"><i class="fas fa-tasks"></i> งานที่ต้องทำ</li>
+                <li onclick="showPage('calendar-page')"><i class="fas fa-calendar"></i> ปฏิทิน</li>
+                <li onclick="showPage('notifications')"><i class="fas fa-bell"></i> การแจ้งเตือน</li>
+                <li onclick="showPage('chat')"><i class="fas fa-comments"></i> แชท</li>
+                <li onclick="showPage('approval')"><i class="fas fa-check-circle"></i> ขออนุมัติ</li>
+                <li onclick="showPage('support')"><i class="fas fa-life-ring"></i> ช่วยเหลือ & ซัพพอร์ต</li>
+                <li onclick="showPage('evaluation')"><i class="fas fa-star"></i> ประเมินผล & ฟีดแบค</li>
+                <li onclick="logout()"><i class="fas fa-sign-out-alt"></i> ออกจากระบบ</li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Profile Page -->
+            <div id="profile" class="page active">
+                <h1>ข้อมูลส่วนตัว</h1>
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3>ข้อมูลพนักงาน</h3>
+                        <p>ชื่อ:  นาย เอ </p>
+                        <p>ตำแหน่ง: Video Editor</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tasks Page -->
+            <div id="tasks" class="page">
+                <h1>งานที่ต้องทำ</h1>
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3>งานที่ต้องทำ</h3>
+                        <p>- ตัดต่อวิดีโอโปรเจกต์ A</p>
+                        <p>- ตรวจสอบไฟล์เสียง</p>
+                    </div>
+                </div>
+                <!-- Task Chart -->
+                <canvas id="taskChart"></canvas>
+            </div>
+
+            <!-- Calendar Page -->
+            <div id="calendar-page" class="page">
+                <h1>ปฏิทิน</h1>
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3>ปฏิทินตารางงาน</h3>
+                        <div id="calendar"></div> <!-- ปฏิทินจะแสดงที่นี่ -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notifications Page -->
+            <div id="notifications" class="page">
+                <h1>การแจ้งเตือน</h1>
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3>การแจ้งเตือน</h3>
+                        <p>ไม่มีการแจ้งเตือนใหม่</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Page -->
+            <div id="chat" class="page">
+                <h1>แชท</h1>
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3>แชท</h3>
+                        <div class="chat-container">
+                            <div class="chat-sidebar">
+                                <div class="chat-list">
+                                    <div class="chat-item" onclick="openChat('user1')">
+                                        <i class="fas fa-user"></i> ผู้ใช้ 1
+                                    </div>
+                                    <div class="chat-item" onclick="openChat('user2')">
+                                        <i class="fas fa-user"></i> ผู้ใช้ 2
+                                    </div>
+                                    <div class="chat-item" onclick="openChat('group1')">
+                                        <i class="fas fa-users"></i> กลุ่ม 1
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat-main">
+                                <div class="chat-header">
+                                    <span id="chat-title">เลือกแชท</span>
+                                </div>
+                                <div class="chat-messages" id="chat-messages">
+                                    <!-- ข้อความจะแสดงที่นี่ -->
+                                </div>
+                                <div class="chat-input">
+                                    <input type="text" id="chat-input" placeholder="พิมพ์ข้อความ..." onkeypress="sendMessage(event)">
+                                    <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="approval" class="page">
+                <h1>ระบบขออนุมัติ</h1>
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3>ขออนุมัติ</h3>
+                        <div class="approval-form">
+                            <form id="approval-form">
+                                <label for="approval-type">ประเภทการขออนุมัติ:</label>
+                                <select id="approval-type" required>
+                                    <option value="ot">ขออนุมัติ OT</option>
+                                    <option value="leave">ขอลา</option>
+                                    <option value="expense">เบิกค่าใช้จ่าย</option>
+                                </select>
+
+                                <label for="approval-date">วันที่:</label>
+                                <input type="date" id="approval-date" required>
+
+                                <label for="approval-details">รายละเอียด:</label>
+                                <textarea id="approval-details" required></textarea>
+
+                                <button type="submit">ส่งคำขอ</button>
+                            </form>
+                        </div>
+
+                        <div class="approval-status">
+                            <h3>สถานะการขออนุมัติ</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ประเภท</th>
+                                        <th>วันที่</th>
+                                        <th>รายละเอียด</th>
+                                        <th>สถานะ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="approval-status-body">
+                                    <!-- ข้อมูลสถานะการขออนุมัติจะแสดงที่นี่ -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="support" class="page">
+                <h1>ช่วยเหลือ & ซัพพอร์ต</h1>
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3>FAQ และคู่มือใช้งานระบบ</h3>
+                        <div class="support-section">
+                            <div class="faq-list">
+                                <h3>คำถามที่พบบ่อย (FAQ)</h3>
+                                <div class="faq-item" onclick="toggleFAQ(1)">
+                                    <strong>Q: วิธีการขออนุมัติ OT?</strong>
+                                    <p id="faq-answer-1" style="display: none;">A: เข้าสู่ระบบ > เลือกเมนู "ขออนุมัติ" > กรอกข้อมูลและส่งคำขอ</p>
+                                </div>
+                                <div class="faq-item" onclick="toggleFAQ(2)">
+                                    <strong>Q: วิธีการขอลา?</strong>
+                                    <p id="faq-answer-2" style="display: none;">A: เข้าสู่ระบบ > เลือกเมนู "ขออนุมัติ" > กรอกข้อมูลและส่งคำขอ</p>
+                                </div>
+                            </div>
+                            <div class="manual-list">
+                                <h3>คู่มือใช้งานระบบ</h3>
+                                <div class="manual-item" onclick="toggleManual(1)">
+                                    <strong>คู่มือการใช้งานระบบขออนุมัติ</strong>
+                                    <p id="manual-answer-1" style="display: none;">1. เข้าสู่ระบบ 2. เลือกเมนู "ขออนุมัติ" 3. กรอกข้อมูลและส่งคำขอ</p>
+                                </div>
+                                <div class="manual-item" onclick="toggleManual(2)">
+                                    <strong>คู่มือการใช้งานระบบแชท</strong>
+                                    <p id="manual-answer-2" style="display: none;">1. เข้าสู่ระบบ 2. เลือกเมนู "แชท" 3. เลือกผู้ใช้หรือกลุ่มที่ต้องการแชท</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>ส่ง Ticket ขอความช่วยเหลือ</h3>
+                        <div class="support-section">
+                            <form id="ticket-form" class="ticket-form">
+                                <label for="ticket-department">แผนก:</label>
+                                <select id="ticket-department" required>
+                                    <option value="it">IT</option>
+                                    <option value="hr">HR</option>
+                                </select>
+
+                                <label for="ticket-subject">หัวข้อ:</label>
+                                <input type="text" id="ticket-subject" required>
+
+                                <label for="ticket-details">รายละเอียด:</label>
+                                <textarea id="ticket-details" required></textarea>
+
+                                <button type="submit">ส่ง Ticket</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="evaluation" class="page">
+                <h1>ประเมินผล & ฟีดแบค</h1>
+                <div class="dashboard-cards">
+                    <div class="card">
+                        <h3>ให้ Feedback เกี่ยวกับงานหรือบริษัท</h3>
+                        <div class="evaluation-section">
+                            <form id="feedback-form" class="evaluation-form">
+                                <label for="feedback-type">ประเภท Feedback:</label>
+                                <select id="feedback-type" required>
+                                    <option value="work">เกี่ยวกับงาน</option>
+                                    <option value="company">เกี่ยวกับบริษัท</option>
+                                </select>
+
+                                <label for="feedback-details">รายละเอียด:</label>
+                                <textarea id="feedback-details" required></textarea>
+
+                                <button type="submit">ส่ง Feedback</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>ประเมินผลการทำงานรายเดือน/รายปี</h3>
+                        <div class="evaluation-section">
+                            <form id="evaluation-form" class="evaluation-form">
+                                <label for="evaluation-period">ช่วงเวลา:</label>
+                                <select id="evaluation-period" required>
+                                    <option value="monthly">รายเดือน</option>
+                                    <option value="yearly">รายปี</option>
+                                </select>
+
+                                <label for="evaluation-details">รายละเอียด:</label>
+                                <textarea id="evaluation-details" required></textarea>
+
+                                <button type="submit">ส่งการประเมิน</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>บันทึกเป้าหมายการพัฒนาในสายงาน</h3>
+                        <div class="goal-section">
+                            <form id="goal-form" class="goal-form">
+                                <label for="goal-title">หัวข้อเป้าหมาย:</label>
+                                <input type="text" id="goal-title" required>
+
+                                <label for="goal-details">รายละเอียด:</label>
+                                <textarea id="goal-details" required></textarea>
+
+                                <button type="submit">บันทึกเป้าหมาย</button>
+                            </form>
+                            <div class="goal-list" id="goal-list">
+                                <!-- เป้าหมายจะแสดงที่นี่ -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </div>
+        </div>
+    </div>
+        </div>
+    </div>
+
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script>
+        // Logout Function
+        function logout() {
+            window.location.href = "login.html"; // เปลี่ยนไปยังหน้า login.html
+        }
+
+        // Show Page Function
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Show the selected page
+            const selectedPage = document.getElementById(pageId);
+            if (selectedPage) {
+                selectedPage.classList.add('active');
+            }
+
+            // Render the calendar if the calendar page is selected
+            if (pageId === "calendar-page") {
+                setTimeout(() => {
+                    calendar.render();
+                }, 10);
+            }
+
+            // Render chat messages if the chat page is selected
+            if (pageId === "chat") {
+                renderChatMessages();
+            }
+        }
+
+        // Chart.js Configuration
+        const ctx = document.getElementById('taskChart').getContext('2d');
+        const taskChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['งานที่เสร็จ', 'กำลังดำเนินการ', 'ยังไม่เริ่ม'],
+                datasets: [{
+                    label: 'สถานะงาน',
+                    data: [5, 3, 2],
+                    backgroundColor: ['#4caf50', '#ffeb3b', '#f44336'] /* สีเขียว, เหลือง, แดง */
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: '#ddd',
+                        },
+                        ticks: {
+                            color: '#555',
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: '#ddd',
+                        },
+                        ticks: {
+                            color: '#555',
+                        }
+                    }
+                }
+            }
+        });
+
+        // Calendar Configuration
+        let calendar; // Declare calendar globally
+        document.addEventListener('DOMContentLoaded', function () {
+            const calendarEl = document.getElementById('calendar');
+
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth', // แสดงเป็นเดือน
+                height: 'auto', // ให้ขนาดปรับอัตโนมัติ
+                contentHeight: 'auto',
+                aspectRatio: 1.5, // ปรับอัตราส่วนให้กว้างขึ้น
+                expandRows: true, // ให้แถวของปฏิทินเต็มพื้นที่
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                events: [
+                    {
+                        title: 'ประชุมทีม',
+                        start: '2025-2-10T10:00:00',
+                        end: '2025-2-10T12:00:00'
+                    },
+                    {
+                        title: 'ส่งงานโปรเจกต์ A',
+                        start: '2025-2-15',
+                        end: '2025-2-17'
+                    }
+                ],
+                eventColor: '#1877f2', // สีของเหตุการณ์
+                eventTextColor: '#ffffff', // สีข้อความของเหตุการณ์
+                eventDisplay: 'block', // แสดงเหตุการณ์เป็นบล็อก
+                eventTimeFormat: {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                },
+                dayMaxEvents: true, // แสดงเหตุการณ์ทั้งหมดในแต่ละวัน
+                navLinks: true, // อนุญาตให้คลิกที่วันที่เพื่อเปลี่ยนเป็นมุมมองวัน
+                selectable: true, // อนุญาตให้เลือกวันที่
+                selectMirror: true, // แสดงการเลือกวันที่
+                select: function(info) {
+                    alert('เลือกวันที่: ' + info.startStr);
+                    calendar.unselect();
+                },
+                eventClick: function(info) {
+                    alert('เหตุการณ์: ' + info.event.title);
+                }
+            });
+
+            // Render the calendar if the calendar page is active on initial load
+            if (document.getElementById('calendar-page').classList.contains('active')) {
+                calendar.render();
+            }
+        });
+
+        // ตัวแปรเก็บข้อมูลแชท
+        let currentChat = null;
+        const chats = {
+            user1: [],
+            user2: [],
+            group1: []
+        };
+
+        // ฟังก์ชันเปิดแชท
+        function openChat(chatId) {
+            currentChat = chatId;
+            document.getElementById('chat-title').innerText = chatId;
+            renderChatMessages();
+        }
+
+        // ฟังก์ชันส่งข้อความ
+        function sendMessage(event) {
+            if (event && event.key !== 'Enter') return;
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            if (message && currentChat) {
+                // เพิ่มข้อความที่ผู้ใช้ส่ง
+                chats[currentChat].push({ text: message, sender: 'sent' });
+                input.value = '';
+                renderChatMessages();
+
+                // จำลองการตอบกลับอัตโนมัติ
+                autoReply(message);
+            }
+        }
+
+        // ฟังก์ชันตอบกลับอัตโนมัติ
+        function autoReply(message) {
+            let reply = "";
+            if (message.includes("งานที่ต้องทำ")) {
+                reply = "งานที่ต้องทำมีดังนี้: ตัดต่อวิดีโอโปรเจกต์ A, ตรวจสอบไฟล์เสียง";
+            } else if (message.includes("สถานะงาน")) {
+                reply = "สถานะงาน: เสร็จแล้ว 5 งาน, กำลังดำเนินการ 3 งาน, ยังไม่เริ่ม 2 งาน";
+            } else if (message.includes("วันนี้มีงานอะไร")) {
+                reply = "ไม่บอกกก";
+            } 
+            else if (message.includes("ควย")) {
+                reply = "เหี้ยไรไอ้แว่น";
+            }
+            else if (message.includes("เอ้า")) {
+                reply = "ขอโทษ";
+            } 
+            else {
+                reply = "ฉันไม่เข้าใจคำถามของคุณ กรุณาถามใหม่";
+            }
+
+            // เพิ่มข้อความตอบกลับ
+            setTimeout(() => {
+                chats[currentChat].push({ text: reply, sender: 'received' });
+                renderChatMessages();
+            }, 1000); // จำลองการตอบกลับหลังจาก 1 วินาที
+        }
+
+        // ฟังก์ชันแสดงข้อความ
+        function renderChatMessages() {
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.innerHTML = '';
+            if (currentChat) {
+                chats[currentChat].forEach(msg => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.classList.add('message', msg.sender);
+                    messageDiv.innerText = msg.text;
+                    chatMessages.appendChild(messageDiv);
+                });
+            }
+            chatMessages.scrollTop = chatMessages.scrollHeight; // เลื่อนไปที่ข้อความล่าสุด
+        }
+
+        // ฟังก์ชันจัดการการส่งคำขออนุมัติ
+        document.getElementById('approval-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const type = document.getElementById('approval-type').value;
+            const date = document.getElementById('approval-date').value;
+            const details = document.getElementById('approval-details').value;
+
+            // เพิ่มข้อมูลการขออนุมัติลงในตาราง
+            const statusBody = document.getElementById('approval-status-body');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${type}</td>
+                <td>${date}</td>
+                <td>${details}</td>
+                <td>รออนุมัติ</td>
+            `;
+            statusBody.appendChild(newRow);
+
+            // ล้างฟอร์ม
+            document.getElementById('approval-form').reset();
+            alert('ส่งคำขออนุมัติสำเร็จ');
+        });
+
+        // ฟังก์ชันจัดการการส่ง Ticket
+        document.getElementById('ticket-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const department = document.getElementById('ticket-department').value;
+            const subject = document.getElementById('ticket-subject').value;
+            const details = document.getElementById('ticket-details').value;
+
+            // ส่ง Ticket (ตัวอย่าง)
+            alert(`ส่ง Ticket สำเร็จ\nแผนก: ${department}\nหัวข้อ: ${subject}\nรายละเอียด: ${details}`);
+            document.getElementById('ticket-form').reset();
+        });
+
+        // ฟังก์ชันแสดง/ซ่อน FAQ
+        function toggleFAQ(id) {
+            const answer = document.getElementById(`faq-answer-${id}`);
+            if (answer.style.display === "none") {
+                answer.style.display = "block";
+            } else {
+                answer.style.display = "none";
+            }
+        }
+
+        // ฟังก์ชันแสดง/ซ่อนคู่มือ
+        function toggleManual(id) {
+            const answer = document.getElementById(`manual-answer-${id}`);
+            if (answer.style.display === "none") {
+                answer.style.display = "block";
+            } else {
+                answer.style.display = "none";
+            }
+        }
+
+         // ฟังก์ชันจัดการการส่ง Feedback
+         document.getElementById('feedback-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const type = document.getElementById('feedback-type').value;
+            const details = document.getElementById('feedback-details').value;
+
+            // ส่ง Feedback (ตัวอย่าง)
+            alert(`ส่ง Feedback สำเร็จ\nประเภท: ${type}\nรายละเอียด: ${details}`);
+            document.getElementById('feedback-form').reset();
+        });
+
+        // ฟังก์ชันจัดการการส่งการประเมิน
+        document.getElementById('evaluation-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const period = document.getElementById('evaluation-period').value;
+            const details = document.getElementById('evaluation-details').value;
+
+            // ส่งการประเมิน (ตัวอย่าง)
+            alert(`ส่งการประเมินสำเร็จ\nช่วงเวลา: ${period}\nรายละเอียด: ${details}`);
+            document.getElementById('evaluation-form').reset();
+        });
+
+        // ฟังก์ชันจัดการการบันทึกเป้าหมาย
+        document.getElementById('goal-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const title = document.getElementById('goal-title').value;
+            const details = document.getElementById('goal-details').value;
+
+            // เพิ่มเป้าหมายลงในรายการ
+            const goalList = document.getElementById('goal-list');
+            const goalItem = document.createElement('div');
+            goalItem.classList.add('goal-item');
+            goalItem.innerHTML = `
+                <h4>${title}</h4>
+                <p>${details}</p>
+            `;
+            goalList.appendChild(goalItem);
+
+            // ล้างฟอร์ม
+            document.getElementById('goal-form').reset();
+            alert('บันทึกเป้าหมายสำเร็จ');
+        });
+    </script>
+</body>
+</html>

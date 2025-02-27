@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Production House</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* General Styles */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Kanit', sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #1877f2, #00a8ff, #ffffff, #1877f2); /* พื้นหลังสีฟ้าและขาว */
+            background-size: 400% 400%; /* ขนาดพื้นหลังสำหรับ Animation */
+            animation: gradientBackground 10s ease infinite; /* Animation */
+            color: #fff; /* ข้อความสีขาว */
+        }
+
+        /* Animation สำหรับพื้นหลัง */
+        @keyframes gradientBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Login Container */
+        .login-container {
+            width: 450px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9); /* พื้นหลังสีขาวโปร่งแสง */
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px); /* เพิ่มเอฟเฟกต์เบลอ */
+        }
+
+        /* Logo */
+        .logo {
+            width: 100px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)); /* เพิ่มเงาให้โลโก้ */
+        }
+
+        /* Company Name */
+        .company-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #1877f2; /* สีฟ้า */
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เพิ่มเงาให้ข้อความ */
+        }
+
+        /* Heading */
+        .login-container h2 {
+            color: #1877f2; /* สีฟ้า */
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        /* Input Fields */
+        .login-container input {
+            width: 95%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: rgba(240, 242, 245, 0.8); /* สีพื้นหลังโปร่งแสง */
+            font-size: 1em;
+            color: #333; /* ข้อความสีเทาเข้ม */
+            transition: all 0.3s ease;
+        }
+
+        .login-container input:focus {
+            outline: none;
+            border-color: #1877f2; /* สีฟ้าเมื่อโฟกัส */
+            box-shadow: 0 0 8px rgba(24, 119, 242, 0.5); /* เงาสีฟ้า */
+            background-color: #fff; /* สีพื้นหลังขาวเมื่อโฟกัส */
+        }
+
+        /* Buttons */
+        .login-container button {
+            background: #1877f2; /* สีฟ้า */
+            color: white;
+            padding: 12px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1em;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เพิ่มเงาให้ปุ่ม */
+        }
+
+        .login-container button:hover {
+            background-color: #165dbb; /* สีฟ้าเข้มเมื่อโฮเวอร์ */
+            transform: translateY(-2px); /* เลื่อนปุ่มขึ้นเล็กน้อย */
+        }
+
+        .login-container .back-button {
+            background: #555; /* สีเทา */
+        }
+
+        .login-container .back-button:hover {
+            background: #444; /* สีเทาเข้มเมื่อโฮเวอร์ */
+        }
+
+        /* Additional Styling */
+        .login-container p {
+            color: #666; /* ข้อความสีเทา */
+            margin-top: 15px;
+        }
+
+        .login-container a {
+            color: #1877f2; /* สีฟ้า */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-container a:hover {
+            text-decoration: underline; /* ขีดเส้นใต้เมื่อโฮเวอร์ */
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Container -->
+    <div class="login-container">
+        <!-- Logo -->
+        <img src="image/pic1.png" alt="Production House Logo" class="logo">
+        
+        <!-- Company Name -->
+        <div class="company-name">Production House</div>
+
+        <!-- Login Form -->
+        <h2>เข้าสู่ระบบ</h2>
+        <input type="text" id="username" placeholder="ชื่อผู้ใช้" required>
+        <input type="password" id="password" placeholder="รหัสผ่าน" required>
+        <button onclick="login()">เข้าสู่ระบบ</button>
+        <button class="back-button" onclick="goToMainPage()">ย้อนกลับ</button>
+    </div>
+
+    <script>
+        function login() {
+            window.location.href = "manage.html";
+        }
+
+        function goToMainPage() {
+            window.location.href = "main.html";
+        }
+    </script>
+</body>
+</html>

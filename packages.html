@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="บริการของเรา | 454 Media House - เรามีบริการที่ครอบคลุมทุกด้านของการผลิตสื่อและการตลาด">
+    <meta name="keywords" content="ถ่ายทำวิดีโอ, ถ่ายภาพสินค้า, ตัดต่อวิดีโอ, ออกแบบกราฟิก, การตลาดดิจิทัล">
+    <title>บริการของเรา | 454 Media House</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap">
+    <link rel="stylesheet" href="CSS/packages.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="image/pic1.png" alt="Media House Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="main.html">หน้าแรก</a></li>
+                <li><a href="services.html">บริการ</a></li>
+                <li><a href="packages.html">แพ็คเกจ</a></li>
+                <li><a href="about.html">เกี่ยวกับเรา</a></li>
+                <li><a href="contact.html">ติดต่อเรา</a></li>
+                <li><a href="login.html">พนักงาน</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <video autoplay muted loop class="video-bg">
+            <source src="videos/vdo2.mp4" type="video/mp4">
+            เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
+        </video>
+        <div class="hero-content">
+            <h1>แพ็คเกจของเรา</h1>
+            <p>เรามีบริการที่ครอบคลุมทุกด้านของการผลิตสื่อและการตลาด</p>
+            <a href="#packages" class="btn">ดูแพ็คเกจทั้งหมด</a>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section id="packages" class="packages">
+        <h2>แพ็คเกจบริการ</h2>
+        <div class="package-list">
+            <div class="package-item">
+                <h3>แพ็คเกจพื้นฐาน</h3>
+                <p class="price">฿5,000</p>
+                <ul>
+                    <li>ถ่ายทำวิดีโอ 1 วัน</li>
+                    <li>ตัดต่อวิดีโอ 3 นาที</li>
+                    <li>ถ่ายภาพสินค้า 10 รูป</li>
+                </ul>
+                <a href="#" class="btn" onclick="showPopup('basic')">เลือกแพ็คเกจ</a>
+            </div>
+            <div class="package-item">
+                <h3>แพ็คเกจมาตรฐาน</h3>
+                <p class="price">฿10,000</p>
+                <ul>
+                    <li>ถ่ายทำวิดีโอ 2 วัน</li>
+                    <li>ตัดต่อวิดีโอ 5 นาที</li>
+                    <li>ถ่ายภาพสินค้า 20 รูป</li>
+                    <li>ออกแบบกราฟิก 1 ชิ้น</li>
+                </ul>
+                <a href="#" class="btn" onclick="showPopup('standard')">เลือกแพ็คเกจ</a>
+            </div>
+            <div class="package-item">
+                <h3>แพ็คเกจพรีเมียม</h3>
+                <p class="price">฿20,000</p>
+                <ul>
+                    <li>ถ่ายทำวิดีโอ 3 วัน</li>
+                    <li>ตัดต่อวิดีโอ 10 นาที</li>
+                    <li>ถ่ายภาพสินค้า 50 รูป</li>
+                    <li>ออกแบบกราฟิก 3 ชิ้น</li>
+                    <li>โฆษณาออนไลน์ 1 แคมเปญ</li>
+                </ul>
+                <a href="#" class="btn" onclick="showPopup('premium')">เลือกแพ็คเกจ</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popup Overlay -->
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup-content">
+            <h3 id="popup-title">แพ็คเกจพื้นฐาน</h3>
+            <ul id="popup-details">
+                <li>ถ่ายทำวิดีโอ 1 วัน</li>
+                <li>ตัดต่อวิดีโอ 3 นาที</li>
+                <li>ถ่ายภาพสินค้า 10 รูป</li>
+            </ul>
+            <button class="btn" onclick="showPaymentForm()">ชำระเงิน</button>
+            <button class="close-btn" onclick="closePopup()">ปิด</button>
+            <!-- Payment Form -->
+            <div class="payment-form" id="payment-form">
+                <h3>กรอกข้อมูลบัตรเครดิต</h3>
+                <input type="text" id="card-number" placeholder="เลขบัตรเครดิต" required>
+                <div class="form-row">
+                    <input type="text" id="expiry-date" placeholder="วันหมดอายุ (MM/YY)" required>
+                    <input type="text" id="cvv" placeholder="CVV" required>
+                </div>
+                <button onclick="submitPayment()">ยืนยันการชำระเงิน</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Media House. All rights reserved.</p>
+        <p><a href="main.html">หน้าแรก</a> | <a href="contact.html">ติดต่อเรา</a></p>
+    </footer>
+
+    <script>
+        // Function to show popup
+        function showPopup(package) {
+            const popupOverlay = document.getElementById('popup-overlay');
+            const popupTitle = document.getElementById('popup-title');
+            const popupDetails = document.getElementById('popup-details');
+
+            if (package === 'basic') {
+                popupTitle.textContent = 'แพ็คเกจพื้นฐาน';
+                popupDetails.innerHTML = `
+                    <li>ถ่ายทำวิดีโอ 1 วัน</li>
+                    <li>ตัดต่อวิดีโอ 3 นาที</li>
+                    <li>ถ่ายภาพสินค้า 10 รูป</li>
+                `;
+            } else if (package === 'standard') {
+                popupTitle.textContent = 'แพ็คเกจมาตรฐาน';
+                popupDetails.innerHTML = `
+                    <li>ถ่ายทำวิดีโอ 2 วัน</li>
+                    <li>ตัดต่อวิดีโอ 5 นาที</li>
+                    <li>ถ่ายภาพสินค้า 20 รูป</li>
+                    <li>ออกแบบกราฟิก 1 ชิ้น</li>
+                `;
+            } else if (package === 'premium') {
+                popupTitle.textContent = 'แพ็คเกจพรีเมียม';
+                popupDetails.innerHTML = `
+                    <li>ถ่ายทำวิดีโอ 3 วัน</li>
+                    <li>ตัดต่อวิดีโอ 10 นาที</li>
+                    <li>ถ่ายภาพสินค้า 50 รูป</li>
+                    <li>ออกแบบกราฟิก 3 ชิ้น</li>
+                    <li>โฆษณาออนไลน์ 1 แคมเปญ</li>
+                `;
+            }
+
+            popupOverlay.style.display = 'flex';
+        }
+
+        // Function to close popup
+        function closePopup() {
+            const popupOverlay = document.getElementById('popup-overlay');
+            const paymentForm = document.getElementById('payment-form');
+            popupOverlay.style.display = 'none';
+            paymentForm.style.display = 'none';
+        }
+
+        // Function to show payment form
+        function showPaymentForm() {
+            const paymentForm = document.getElementById('payment-form');
+            paymentForm.style.display = 'block';
+        }
+
+        // Function to submit payment
+        function submitPayment() {
+            const cardNumber = document.getElementById('card-number').value;
+            const expiryDate = document.getElementById('expiry-date').value;
+            const cvv = document.getElementById('cvv').value;
+
+            if (cardNumber && expiryDate && cvv) {
+                alert('ชำระเงินสำเร็จ!');
+                closePopup();
+            } else {
+                alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+            }
+        }
+    </script>
+</body>
+</html>
